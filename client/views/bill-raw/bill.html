@@ -1,0 +1,12 @@
+<template name="billRaw">
+  <div>
+    <input sum-spent-input type="number" class="validate" value="{{sumSpent}}">
+    <button save-bill-btn>Save</button>
+  </div>
+  <ul>
+    <li>me {{myShare}}</li>
+    {{#each friends}}
+      <li friend-item>{{profile.name}} {{friendShare}}</li>
+    {{/each}}
+  </ul>
+</template>

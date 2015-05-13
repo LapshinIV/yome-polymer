@@ -1,0 +1,8 @@
+<template name="historyRaw">
+  <h4>History</h4>
+  <ul>
+    {{#each bills}}
+      <li>{{payer.userName}} {{sum}} ({{#each shares}}{{userName}} {{sum}}; {{/each}})</li>
+    {{/each}}
+  </ul>
+</template>

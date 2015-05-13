@@ -1,0 +1,13 @@
+<template name="ApplicationLayout">
+  {{> loginButtons}}
+
+  {{#if currentUser}}
+    <p>
+      <a href="/">New bill</a>
+      <a href="/overview">Overview</a>
+      <a href="/history">History</a>
+    </p>
+
+    {{> yield}}
+  {{/if}}
+</template>

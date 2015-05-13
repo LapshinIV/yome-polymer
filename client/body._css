@@ -1,0 +1,3 @@
+paper-input /deep/ #input {
+  text-align: right;
+}
