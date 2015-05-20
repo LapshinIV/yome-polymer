@@ -1,5 +1,7 @@
 Router.configure({
-  layoutTemplate: 'ApplicationLayout'
+  layoutTemplate: 'ApplicationLayout',
+  autoRender: false,
+  autoStart: false
 });
 
 Router.route('/', function() {
@@ -12,4 +14,4 @@ Router.route('/history', function() {
 
 Router.route('/overview', function() {
   this.render('overviewRaw');
-})
+});
