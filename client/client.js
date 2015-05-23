@@ -5,9 +5,8 @@ $(window).on('polymer-ready', function() {
 });
 
 Meteor.startup(function() {
-
+  $("body").append("<div fit layout vertical iron-router></div>");
   Tracker.autorun(function() {
-    $("body").append("<div fit layout vertical iron-router></div>");
     if (polymerReady.get()) {
       Router.insert({el: "[iron-router]"});
       Router.start();
