@@ -24,11 +24,11 @@ Template.billRaw.helpers({
   },
   myShare: function() {
     var myShare = getAShare(Session.get('bill'), Meteor.userId());
-    return myShare ? myShare.sum : 0;
+    return myShare.sum ? myShare.sum : undefined;
   },
   friendShare: function() {
     var friendShare = getAShare(Session.get('bill'), this._id);
-    return friendShare ? friendShare.sum : 0;
+    return friendShare.sum ? friendShare.sum : undefined;
   }
 });
 
