@@ -1,7 +1,5 @@
 Router.configure({
-  layoutTemplate: 'ApplicationLayout',
-  autoRender: false,
-  autoStart: false
+  layoutTemplate: 'ApplicationLayout'
 });
 
 Router.route('/', function() {
