@@ -1,13 +1,25 @@
 <template name="ApplicationLayout">
-  {{> loginButtons}}
+  <paper-header-panel class="main" shadow>
 
-  {{#if currentUser}}
-    <p>
-      <a href="/">New bill</a>
-      <a href="/overview">Overview</a>
-      <a href="/history">History</a>
-    </p>
+    <!-- Main Toolbar -->
+    <paper-toolbar style="background-color: lightblue">
+      <!-- <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button> -->
+      <div>{{> loginButtons}}</div>
+    </paper-toolbar>
 
-    {{> yield}}
-  {{/if}}
+    <!-- Main Content -->
+    <div class="content fit">
+
+      {{#if currentUser}}
+        <p>
+          <a href="/">New bill</a>
+          <a href="/overview">Overview</a>
+          <a href="/history">History</a>
+        </p>
+
+        {{> yield}}
+      {{/if}}
+    </div>
+
+  </paper-header-panel>
 </template>
