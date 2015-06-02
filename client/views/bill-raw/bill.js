@@ -28,7 +28,7 @@ Template.billRaw.helpers({
   },
   friendShare: function() {
     var friendShare = getAShare(Session.get('bill'), this._id);
-    return friendShare.sum ? friendShare.sum : undefined;
+    return friendShare && friendShare.sum ? friendShare.sum : undefined;
   }
 });
 
