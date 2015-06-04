@@ -8,18 +8,24 @@
     </paper-toolbar>
 
     <!-- Main Content -->
-    <div class="content fit">
 
-      {{#if currentUser}}
-        <p>
-          <a href="/">New bill</a>
-          <a href="/overview">Overview</a>
-          <a href="/history">History</a>
-        </p>
 
-        {{> yield}}
-      {{/if}}
-    </div>
+      <div class="content fit">
+        {{#if currentUser}}
+            <paper-tabs selected="0">
+                <paper-tab link>
+                    <a href="/" class="horizontal center-center layout" style="text-decoration: none;">ADD SPENDING</a>
+                </paper-tab>
+                <paper-tab link>
+                    <a href="/overview" class="horizontal center-center layout" style="text-decoration: none;">OVERVIEW</a>
+                </paper-tab>
+                <paper-tab link>
+                    <a href="/history" class="horizontal center-center layout" style="text-decoration: none;">HISTORY</a>
+                </paper-tab>
+            </paper-tabs>
+            {{> yield}}
+        {{/if}}
+      </div>
 
   </paper-header-panel>
 </template>
