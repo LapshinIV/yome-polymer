@@ -28,7 +28,7 @@ Template.billRaw.helpers({
   },
   friendShare: function() {
     var friendShare = getAShare(Session.get('bill'), this._id);
-    return friendShare.sum ? friendShare.sum : undefined;
+    return friendShare && friendShare.sum ? friendShare.sum : undefined;
   }
 });
 
@@ -41,25 +41,28 @@ Template.billRaw.events({
   },
   'click [friend-item]': function(event, tpl) {
     var bill = Session.get('bill');
-
-    if (_.findWhere( bill.shares, {userId: this._id} )) {
-      // remove clicked friend from the shares
-      bill.shares = _.without( bill.shares, _.findWhere( bill.shares, {userId: this._id} ) );
-    } else {
-      // add clicked friend to the shares
-      bill.shares.push({ userId: this._id});
+    if(bill.sum && bill.sum != 0) {
+        if (_.findWhere(bill.shares, {userId: this._id})) {
+            // remove clicked friend from the shares
+            bill.shares = _.without(bill.shares, _.findWhere(bill.shares, {userId: this._id}));
+        } else {
+            // add clicked friend to the shares
+            bill.shares.push({userId: this._id});
+        }
+        recalculateShares(bill);
+        Session.set('bill', bill);
     }
-    recalculateShares(bill);
-    Session.set('bill', bill);
   },
   'click [save-bill-btn]': function(event, tpl) {
     var bill = Session.get('bill');
-    bill.payer.userName = Meteor.users.findOne({_id: bill.payer.userId}).profile.name;
-    _.each(bill.shares, function(element, index, list) {
-      element.userName = Meteor.users.findOne({_id: element.userId}).profile.name;
-    })
-    Bills.insert(bill);
-    Session.set('bill', emptyBill);
+      if(bill.sum && bill.sum != 0) {
+          bill.payer.userName = Meteor.users.findOne({_id: bill.payer.userId}).profile.name;
+          _.each(bill.shares, function (element, index, list) {
+              element.userName = Meteor.users.findOne({_id: element.userId}).profile.name;
+          });
+          Bills.insert(bill);
+          Session.set('bill', emptyBill);
+      }
   }
 });
 
