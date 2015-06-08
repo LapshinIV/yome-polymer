@@ -16,7 +16,13 @@ Template.billRaw.helpers({
     return bill.sum;
   },
   friends: function() {
-    return Meteor.users.find({_id: {$ne: Meteor.userId()}});
+    var friends = Meteor.users.find({_id: {$ne: Meteor.userId()}}).fetch();
+    var bill = Session.get('bill');
+    return friends.sort(function(f1, f2) {
+       var f1sharing = _.findWhere( bill.shares, {userId: f1._id} ) ? 1 : 0;
+       var f2sharing = _.findWhere( bill.shares, {userId: f2._id} ) ? 1 : 0;
+       return f2sharing - f1sharing;
+    });
   },
   isFriendSelected: function() {
     var bill = Session.get('bill');
