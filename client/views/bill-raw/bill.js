@@ -9,7 +9,6 @@ var emptyBill = {
 };
 
 Session.setDefault('bill', emptyBill);
-
 Template.billRaw.helpers({
   sumSpent: function() {
     var bill = Session.get('bill');
@@ -29,7 +28,10 @@ Template.billRaw.helpers({
   friendShare: function() {
     var friendShare = getAShare(Session.get('bill'), this._id);
     return friendShare && friendShare.sum ? friendShare.sum : undefined;
-  }
+  },
+  validSum: function () {
+        return Session.get('validSum');
+    }
 });
 
 Template.billRaw.events({
@@ -52,6 +54,7 @@ Template.billRaw.events({
         recalculateShares(bill);
         Session.set('bill', bill);
     }
+
   },
   'click [save-bill-btn]': function(event, tpl) {
     var bill = Session.get('bill');
@@ -60,8 +63,12 @@ Template.billRaw.events({
           _.each(bill.shares, function (element, index, list) {
               element.userName = Meteor.users.findOne({_id: element.userId}).profile.name;
           });
+
           Bills.insert(bill);
           Session.set('bill', emptyBill);
+          Session.set('validSum', "correct the sum");
+      }else{
+          Session.set('validSum', "incorrect the sum");
       }
   }
 });
