@@ -60,6 +60,9 @@ Template.billRaw.events({
   },
   'click [save-bill-btn]': function(event, tpl) {
     var bill = Session.get('bill');
+    toastr.options={
+          "positionClass": "toast-top-full-width"
+    };
       if(bill.sum && bill.sum != 0) {
           bill.payer.userName = Meteor.users.findOne({_id: bill.payer.userId}).profile.name;
           _.each(bill.shares, function (element, index, list) {
@@ -68,6 +71,10 @@ Template.billRaw.events({
 
           Bills.insert(bill);
           Session.set('bill', emptyBill);
+          toastr.success("complete!");
+
+      }else {
+          toastr.error("error");
       }
   }
 });
